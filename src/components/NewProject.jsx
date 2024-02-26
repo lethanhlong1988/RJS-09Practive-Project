@@ -4,6 +4,8 @@ import Input from "./Input.jsx";
 import Modal from "./Modal.jsx";
 
 export default function NewProject({ onAdd }) {
+  const modal = useRef();
+
   const title = useRef();
   const description = useRef();
   const dueDate = useRef();
@@ -15,6 +17,15 @@ export default function NewProject({ onAdd }) {
 
     // validation...
 
+    if (
+      enteredTitle.trim() === "" ||
+      enteredDescription.trim() === "" ||
+      enteredDueDate.trim() === ""
+    ) {
+      modal.current.open();
+      return;
+    }
+
     onAdd({
       title: enteredTitle,
       description: enteredDescription,
@@ -23,10 +34,21 @@ export default function NewProject({ onAdd }) {
   }
   return (
     <>
-      <Modal>
-        <h2>Invalid Input</h2>
-        <p>Oops ... looks like you forgot to enter a value.</p>
-        <p>Please make sure you provide a valid value for every input field.</p>
+      <Modal ref={modal} buttonCaption="Okay">
+        <h2
+          className="text-xl font-bold 
+        text-stone-700
+        my-4
+        "
+        >
+          Invalid Input
+        </h2>
+        <p className="text-stone-600 mb-4">
+          Oops ... looks like you forgot to enter a value.
+        </p>
+        <p className="text-stone-600">
+          Please make sure you provide a valid value for every input field.
+        </p>
       </Modal>
       <div className="bg-gray-300 w-[35rem] mt-16">
         <menu className="flex items-center justify-end gap-4 my-4">
