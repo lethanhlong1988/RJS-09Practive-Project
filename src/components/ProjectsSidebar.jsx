@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "./Button.jsx";
 
 export default function ProjectsSidebar({
   onStartAddProject,
@@ -27,7 +27,7 @@ export default function ProjectsSidebar({
           let cssClassed =
             "w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800";
           function projectSeclectedClick() {
-            () => onSelectProject(project.id);
+            onSelectProject(project.id);
             console.log(project.id);
           }
 
@@ -39,6 +39,10 @@ export default function ProjectsSidebar({
           return (
             <li key={project.id}>
               <button className={cssClassed} onClick={projectSeclectedClick}>
+                {/* <button
+                className={cssClassed}
+                onClick={() => onSelectProject(project.id)}
+              > */}
                 {project.title}
               </button>
             </li>

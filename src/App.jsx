@@ -44,22 +44,45 @@ function App() {
     });
   }
 
+  function handleDeleteProject() {
+    console.log("delete!");
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: prevState.projects.filter(
+          (project) => project.id !== prevState.selectedProjectId,
+        ),
+      };
+    });
+  }
+
   const selectedProject = projectsState.projects.find(
     (project) => project.id === projectsState.selectedProjectId,
   );
 
-  // let content = <SelectedProject project={selectedProject} />;
-  let content;
+  let content = (
+    <SelectedProject project={selectedProject} onDelete={handleDeleteProject} />
+  );
   switch (projectsState.selectedProjectId) {
     case null:
+      console.log("01");
+
       content = <NewProject onAdd={handleAddProject} />;
       break;
     case undefined:
+      console.log("02");
       content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
       break;
 
     default:
-      content = <selectedProject project={selectedProject} />;
+      console.log("03");
+      // content = (
+      //   <SelectedProject
+      //     project={selectedProject}
+      //     onDelete={handleDeleteProject}
+      //   />
+      // );
       break;
   }
   // if (projectsState.selectedProjectId === null) {
@@ -77,7 +100,6 @@ function App() {
       />
 
       {content}
-      {/* <SelectedProject project={selectedProject} /> */}
     </main>
   );
 }
